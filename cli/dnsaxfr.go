@@ -4,11 +4,12 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"github.com/binaryfigments/axfr"
+	dnsaxfr "github.com/binaryfigments/axfr"
 )
 
 func main() {
-	hostname := "zonetransfer.me"
+	// hostname := "zonetransfer.me"
+	hostname := "databyte.nl"
 	nameserver := "8.8.8.8"
 
 	axfrdata := dnsaxfr.Get(hostname, nameserver)

@@ -17,8 +17,8 @@ type Data struct {
 }
 
 type records struct {
-	Host    string   `json:"host,omitempty"`
-	Records []string `json:"records,omitempty"`
+	Nameserver string   `json:"host,omitempty"`
+	Records    []string `json:"records,omitempty"`
 }
 
 // Get function, main function of this module.
@@ -43,7 +43,7 @@ func Get(hostname string, nameserver string) *Data {
 
 	for _, server := range servers {
 		r := new(records)
-		r.Host = server.Host
+		r.Nameserver = server.Host
 
 		msg := new(dns.Msg)
 		msg.SetAxfr(fqdn)
@@ -51,13 +51,11 @@ func Get(hostname string, nameserver string) *Data {
 		transfer := new(dns.Transfer)
 		answerChan, err := transfer.In(msg, net.JoinHostPort(server.Host, "53"))
 		if err != nil {
-			// log.Println(err)
 			continue
 		}
 
 		for a := range answerChan {
 			if a.Error != nil {
-				// log.Println(a.Error)
 				break
 			}
 
